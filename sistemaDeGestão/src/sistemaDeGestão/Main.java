@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class Main {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
 		
@@ -15,10 +16,6 @@ public class Main {
 		int end = 0;
 		int end2 = 0;
 		int questions;
-		int projetores;
-		int salas = 7;
-		int labs = 4;
-		int aud = 1;
 		
 		String[] prof_name = new String[1000];
 		String[] prof_email = new String[1000];
@@ -186,7 +183,7 @@ public class Main {
 							aloc_thing[aloc_numb] = "Projetor "+questions;
 						}
 					} else if(questions == 2) {
-						System.out.println(");
+						System.out.println("");
 					} else if(questions == 3) {
 						
 					} else if(questions == 4) {
@@ -260,7 +257,7 @@ public class Main {
 			end = input.nextInt();
 			if(end == 2) end = 0;
 		}
-		
+		input.close();
 	}
 
 }
