@@ -37,11 +37,13 @@ public class Main {
 		String[] aloc_status = new String[1000];
 		String[] aloc_thing = new String[1000];
 		int[] aloc_man = new int[1000];
+		
 		int[] aloc_activity_numberpart = new int[1000];
-		int[][] aloc_activity_parts = new int[1000][1000];
 		String[] aloc_activity_title = new String[1000];
 		String[] aloc_activity_material = new String[1000];
 		String[] aloc_activity_description = new String[1000];
+		String[] aloc_activity_type = new String[1000];
+		
 		Date[] aloc_date_start = new Date[1000];
 		Date[] aloc_date_end = new Date[1000];
 		
@@ -113,6 +115,7 @@ public class Main {
 			case 2:
 				System.out.println("");
 				System.out.println("====================");
+				System.out.println("");
 				System.out.println("Você é um professor.");
 				System.out.println("Já se cadastrou? (1 - Sim / 2 - Não)");
 				questions = input.nextInt();
@@ -157,7 +160,7 @@ public class Main {
 							aloc_status[aloc_numb] = "Em processo de alocação";
 							aloc_thing[aloc_numb] = "Sala "+questions;
 						} else if(questions == 2) {
-							System.out.println("Qual laboratório você deseja alocar? (Sala de 1 até 4)");
+							System.out.println("Qual laboratório você deseja alocar? (Laboratório de 1 até 4)");
 							questions = input.nextInt();
 							aloc_numb++;
 							aloc_man[aloc_numb] = atual;
@@ -173,7 +176,7 @@ public class Main {
 							aloc_status[aloc_numb] = "Em processo de alocação";
 							aloc_thing[aloc_numb] = "Auditório";
 						} else if(questions == 4) {
-							System.out.println("Qual projetor você deseja alocar? (Sala de 1 até 10)");
+							System.out.println("Qual projetor você deseja alocar? (Projetores de 1 até 10)");
 							questions = input.nextInt();
 							aloc_numb++;
 							aloc_man[aloc_numb] = atual;
@@ -183,9 +186,69 @@ public class Main {
 							aloc_thing[aloc_numb] = "Projetor "+questions;
 						}
 					} else if(questions == 2) {
-						System.out.println("");
+						System.out.println("Lista de alocações:");
+						for(int cont = 1; cont <= aloc_numb; cont++) {
+							if(aloc_man[cont] == atual  && aloc_status[cont] == "Alocado") {
+								System.out.println("— "+cont+" "+aloc_thing[cont]);
+							}
+						}
+						System.out.println("Digite o numero da alocação, caso não tenha nenhuma ou não queira alguma, digite 0");
+						questions = input.nextInt();
+						if(questions != 0) {
+							int aloc2 = questions;
+							int aloc_in = 0;
+							for(int cont = 1; cont <= aloc_numb; cont++) {
+								if(aloc_man[cont] == atual && aloc_status[cont] == "Em Andamento")
+								{
+									aloc_in = 1;
+								}
+							}
+							if(aloc_in == 0) {
+								System.out.println("Deseja confirmar a alocação "+aloc2+"? (1 - Sim / 2 - Não)");
+								questions = input.nextInt();
+								if(questions == 1) {
+									aloc_status[aloc2] = "Em Andamento";
+								}
+							} else {
+								System.out.println("Você já tem uma alocação em andamento!");
+							}
+							
+						}
 					} else if(questions == 3) {
-						
+						System.out.println("Lista de alocações:");
+						for(int cont = 1; cont <= aloc_numb; cont++) {
+							if(aloc_man[cont] == atual && aloc_status[cont] == "Em Andamento") {
+								System.out.println("— "+cont+" "+aloc_thing[cont]);
+							}
+						}
+						System.out.println("Digite o numero da alocação, caso não tenha nenhuma ou não queira alguma, digite 0");
+						questions = input.nextInt();
+						if(questions != 0) {
+							System.out.println("Deseja adicionar a atividade a alocação"+questions+"? (1 - Sim / 2 - Não)");
+							int aloc2 = questions;
+							questions = input.nextInt();
+							if(questions == 1) {
+								System.out.println("Qual o tipo de atividade? (1 - Aula tradicional, 2 - Apresentação, 3 - Laboratório)");
+								questions = input.nextInt();
+								input.nextLine();
+								if(questions == 1) {
+									aloc_activity_type[aloc2] = "Aula tradicional";
+								} else if(questions == 2) {
+									aloc_activity_type[aloc2] = "Apresentação";
+								} else if(questions == 3) {
+									aloc_activity_type[aloc2] = "Laboratório";
+								}
+								System.out.println("Digite o titulo da atividade:");
+								aloc_activity_description[aloc2] = input.nextLine();
+								System.out.println("Digite a descrição da atividade:");
+								aloc_activity_description[aloc2] = input.nextLine();
+								System.out.println("Digite o link para o material da atividade:");
+								aloc_activity_description[aloc2] = input.nextLine();
+								System.out.println("Quantos participantes na atividade?");
+								aloc_activity_numberpart[aloc2] = input.nextInt();
+								System.out.println("Atividade cadastrada com sucesso.");
+							}
+						}
 					} else if(questions == 4) {
 						end2 = 1;
 					}
@@ -220,11 +283,103 @@ public class Main {
 					System.out.println("4 - Sair");
 					questions = input.nextInt();
 					if(questions == 1){
-						
+						System.out.println("Recursos disponíveis:");
+						System.out.println("1 - Sala");
+						System.out.println("2 - Laboratório");
+						System.out.println("3 - Auditório");
+						System.out.println("4 - Projetor");
+						questions = input.nextInt();
+						if(questions == 1)
+						{
+							System.out.println("Qual sala você deseja alocar? (Sala de 1 até 7)");
+							questions = input.nextInt();
+							aloc_numb++;
+							aloc_man[aloc_numb] = atual;
+							System.out.println("Digite a data de inicio da alocação");
+							System.out.println("Digite a data de fim da alocação");
+							aloc_status[aloc_numb] = "Em processo de alocação";
+							aloc_thing[aloc_numb] = "Sala "+questions;
+						} else if(questions == 2) {
+							System.out.println("Qual laboratório você deseja alocar? (Laboratório de 1 até 4)");
+							questions = input.nextInt();
+							aloc_numb++;
+							aloc_man[aloc_numb] = atual;
+							System.out.println("Digite a data de inicio da alocação");
+							System.out.println("Digite a data de fim da alocação");
+							aloc_status[aloc_numb] = "Em processo de alocação";
+							aloc_thing[aloc_numb] = "Laboratório "+questions;
+						} else if(questions == 3) {
+							aloc_numb++;
+							aloc_man[aloc_numb] = atual;
+							System.out.println("Digite a data de inicio da alocação");
+							System.out.println("Digite a data de fim da alocação");
+							aloc_status[aloc_numb] = "Em processo de alocação";
+							aloc_thing[aloc_numb] = "Auditório";
+						} else if(questions == 4) {
+							System.out.println("Qual projetor você deseja alocar? (Projetores de 1 até 10)");
+							questions = input.nextInt();
+							aloc_numb++;
+							aloc_man[aloc_numb] = atual;
+							System.out.println("Digite a data de inicio da alocação");
+							System.out.println("Digite a data de fim da alocação");
+							aloc_status[aloc_numb] = "Em processo de alocação";
+							aloc_thing[aloc_numb] = "Projetor "+questions;
+						}
 					} else if(questions == 2) {
-						
+						System.out.println("Lista de alocações:");
+						for(int cont = 1; cont <= aloc_numb; cont++) {
+							if(aloc_man[cont] == atual  && aloc_status[cont] == "Alocado") {
+								System.out.println("— "+cont+" "+aloc_thing[cont]);
+							}
+						}
+						System.out.println("Digite o numero da alocação, caso não tenha nenhuma ou não queira alguma, digite 0");
+						questions = input.nextInt();
+						if(questions != 0) {
+							int aloc2 = questions;
+							int aloc_in = 0;
+							for(int cont = 1; cont <= aloc_numb; cont++) {
+								if(aloc_man[cont] == atual && aloc_status[cont] == "Em Andamento")
+								{
+									aloc_in = 1;
+								}
+							}
+							if(aloc_in == 0) {
+								System.out.println("Deseja confirmar a alocação "+aloc2+"? (1 - Sim / 2 - Não)");
+								questions = input.nextInt();
+								if(questions == 1) {
+									aloc_status[aloc2] = "Em Andamento";
+								}
+							} else {
+								System.out.println("Você já tem uma alocação em andamento!");
+							}
+							
+						}
 					} else if(questions == 3) {
-						
+						System.out.println("Lista de alocações:");
+						for(int cont = 1; cont <= aloc_numb; cont++) {
+							if(aloc_man[cont] == atual && aloc_status[cont] == "Em Andamento") {
+								System.out.println("— "+cont+" "+aloc_thing[cont]);
+							}
+						}
+						System.out.println("Digite o numero da alocação, caso não tenha nenhuma ou não queira alguma, digite 0");
+						questions = input.nextInt();
+						if(questions != 0) {
+							System.out.println("Deseja adicionar a atividade a alocação"+questions+"? (1 - Sim / 2 - Não)");
+							int aloc2 = questions;
+							questions = input.nextInt();
+							if(questions == 1) {
+								aloc_activity_type[aloc2] = "Apresentação";
+								System.out.println("Digite o titulo da atividade:");
+								aloc_activity_description[aloc2] = input.nextLine();
+								System.out.println("Digite a descrição da atividade:");
+								aloc_activity_description[aloc2] = input.nextLine();
+								System.out.println("Digite o link para o material da atividade:");
+								aloc_activity_description[aloc2] = input.nextLine();
+								System.out.println("Quantos participantes na atividade?");
+								aloc_activity_numberpart[aloc2] = input.nextInt();
+								System.out.println("Atividade cadastrada com sucesso.");
+							}
+						}
 					} else if(questions == 4) {
 						end2 = 1;
 					}
@@ -251,6 +406,12 @@ public class Main {
 					System.out.println("Bem-vindo de volta "+adm_name[adm_numb]+"!");
 				}
 				System.out.println("Menu de administrador:");
+				System.out.println("1 - Número de usuários");
+				System.out.println("2 - Número de recursos/alocações");
+				System.out.println("3 - Número de atividades");
+				System.out.println("");
+				System.out.println("5 - Sair");
+				questions = input.nextInt();
 				break;
 			}
 			System.out.println("Você deseja sair do sistema? (1 - Sim / 2 - Não)");
