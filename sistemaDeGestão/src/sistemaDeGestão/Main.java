@@ -1,6 +1,5 @@
 package sistemaDeGestão;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -37,6 +36,13 @@ public class Main {
 		String[] aloc_status = new String[1000];
 		String[] aloc_thing = new String[1000];
 		String[] aloc_man = new String[1000];
+		int[] aloc_day = new int[1000];
+		int[] aloc_month = new int[1000];
+		int[] aloc_year = new int[1000];
+		int[] aloc_hour_i = new int[1000];
+		int[] aloc_minute_i = new int[1000];
+		int[] aloc_hour_f = new int[1000];
+		int[] aloc_minute_f = new int[1000];
 		
 		int[] aloc_activity_numberpart = new int[1000];
 		int aloc_activity_numb = 0;
@@ -45,8 +51,7 @@ public class Main {
 		String[] aloc_activity_description = new String[1000];
 		String[] aloc_activity_type = new String[1000];
 		
-		Date[] aloc_date_start = new Date[1000];
-		Date[] aloc_date_end = new Date[1000];
+		
 		
 		while(end == 0) {
 			end2 = 0;
@@ -103,10 +108,33 @@ public class Main {
 							else
 							{
 								aloc_man[temp] = "Prof "+temp;
-								System.out.println("Digite a data de inicio da alocação");
-								System.out.println("Digite a data de fim da alocação");
-								aloc_status[aloc_numb] = "Em processo de alocação";
-								aloc_thing[aloc_numb] = "Sala "+questions;
+								System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+								aloc_day[aloc_numb] = input.nextInt();
+								aloc_month[aloc_numb] = input.nextInt();
+								aloc_year[aloc_numb] = input.nextInt();
+								System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+								aloc_hour_i[aloc_numb] = input.nextInt();
+								aloc_minute_i[aloc_numb] = input.nextInt();
+								System.out.println("Digite a hora de fim da alocação (hh/mm)");
+								aloc_hour_f[aloc_numb] = input.nextInt();
+								aloc_minute_f[aloc_numb] = input.nextInt();
+								int free = 1;
+								for(int free_count = 1; free_count < aloc_numb; free_count++) {
+									if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+										if(aloc_thing[free_count].equals("Sala "+questions)) {
+											if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+												free = 0;
+											}
+										}
+									}
+								}
+								if(free == 1) {
+									aloc_status[aloc_numb] = "Em processo de alocação";
+									aloc_thing[aloc_numb] = "Sala "+questions;
+								} else {
+									System.out.println("Horario não disponível");
+									aloc_numb--;
+								}
 							}
 						}
 					} else if(questions == 2) {
@@ -157,35 +185,127 @@ public class Main {
 							questions = input.nextInt();
 							aloc_numb++;
 							aloc_man[aloc_numb] = "Prof "+atual;
-							System.out.println("Digite a data de inicio da alocação");
-							System.out.println("Digite a data de fim da alocação");
-							aloc_status[aloc_numb] = "Em processo de alocação";
-							aloc_thing[aloc_numb] = "Sala "+questions;
+							System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+							aloc_day[aloc_numb] = input.nextInt();
+							aloc_month[aloc_numb] = input.nextInt();
+							aloc_year[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+							aloc_hour_i[aloc_numb] = input.nextInt();
+							aloc_minute_i[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de fim da alocação (hh/mm)");
+							aloc_hour_f[aloc_numb] = input.nextInt();
+							aloc_minute_f[aloc_numb] = input.nextInt();
+							int free = 1;
+							for(int free_count = 1; free_count < aloc_numb; free_count++) {
+								if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+									if(aloc_thing[free_count].equals("Sala "+questions)) {
+										if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+											free = 0;
+										}
+									}
+								}
+							}
+							if(free == 1) {
+								aloc_status[aloc_numb] = "Em processo de alocação";
+								aloc_thing[aloc_numb] = "Sala "+questions;
+							} else {
+								System.out.println("Horario não disponível");
+								aloc_numb--;
+							}
 						} else if(questions == 2) {
 							System.out.println("Qual laboratório você deseja alocar? (Laboratório de 1 até 4)");
 							questions = input.nextInt();
 							aloc_numb++;
 							aloc_man[aloc_numb] = "Prof "+atual;
-							System.out.println("Digite a data de inicio da alocação");
-							System.out.println("Digite a data de fim da alocação");
-							aloc_status[aloc_numb] = "Em processo de alocação";
-							aloc_thing[aloc_numb] = "Laboratório "+questions;
+							System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+							aloc_day[aloc_numb] = input.nextInt();
+							aloc_month[aloc_numb] = input.nextInt();
+							aloc_year[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+							aloc_hour_i[aloc_numb] = input.nextInt();
+							aloc_minute_i[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de fim da alocação (hh/mm)");
+							aloc_hour_f[aloc_numb] = input.nextInt();
+							aloc_minute_f[aloc_numb] = input.nextInt();
+							int free = 1;
+							for(int free_count = 1; free_count < aloc_numb; free_count++) {
+								if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+									if(aloc_thing[free_count].equals("Laboratório "+questions)) {
+										if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+											free = 0;
+										}
+									}
+								}
+							}
+							if(free == 1) {
+								aloc_status[aloc_numb] = "Em processo de alocação";
+								aloc_thing[aloc_numb] = "Laboratório "+questions;
+							} else {
+								System.out.println("Horario não disponível");
+								aloc_numb--;
+							}
 						} else if(questions == 3) {
 							aloc_numb++;
 							aloc_man[aloc_numb] = "Prof "+atual;
-							System.out.println("Digite a data de inicio da alocação");
-							System.out.println("Digite a data de fim da alocação");
-							aloc_status[aloc_numb] = "Em processo de alocação";
-							aloc_thing[aloc_numb] = "Auditório";
+							System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+							aloc_day[aloc_numb] = input.nextInt();
+							aloc_month[aloc_numb] = input.nextInt();
+							aloc_year[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+							aloc_hour_i[aloc_numb] = input.nextInt();
+							aloc_minute_i[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de fim da alocação (hh/mm)");
+							aloc_hour_f[aloc_numb] = input.nextInt();
+							aloc_minute_f[aloc_numb] = input.nextInt();
+							int free = 1;
+							for(int free_count = 1; free_count < aloc_numb; free_count++) {
+								if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+									if(aloc_thing[free_count].equals("Auditório")) {
+										if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+											free = 0;
+										}
+									}
+								}
+							}
+							if(free == 1) {
+								aloc_status[aloc_numb] = "Em processo de alocação";
+								aloc_thing[aloc_numb] = "Auditório";
+							} else {
+								System.out.println("Horario não disponível");
+								aloc_numb--;
+							}
 						} else if(questions == 4) {
 							System.out.println("Qual projetor você deseja alocar? (Projetores de 1 até 10)");
 							questions = input.nextInt();
 							aloc_numb++;
 							aloc_man[aloc_numb] = "Prof "+atual;
-							System.out.println("Digite a data de inicio da alocação");
-							System.out.println("Digite a data de fim da alocação");
-							aloc_status[aloc_numb] = "Em processo de alocação";
-							aloc_thing[aloc_numb] = "Projetor "+questions;
+							System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+							aloc_day[aloc_numb] = input.nextInt();
+							aloc_month[aloc_numb] = input.nextInt();
+							aloc_year[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+							aloc_hour_i[aloc_numb] = input.nextInt();
+							aloc_minute_i[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de fim da alocação (hh/mm)");
+							aloc_hour_f[aloc_numb] = input.nextInt();
+							aloc_minute_f[aloc_numb] = input.nextInt();
+							int free = 1;
+							for(int free_count = 1; free_count < aloc_numb; free_count++) {
+								if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+									if(aloc_thing[free_count].equals("Projetor "+questions)) {
+										if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+											free = 0;
+										}
+									}
+								}
+							}
+							if(free == 1) {
+								aloc_status[aloc_numb] = "Em processo de alocação";
+								aloc_thing[aloc_numb] = "Projetor "+questions;
+							} else {
+								System.out.println("Horario não disponível");
+								aloc_numb--;
+							}
 						}
 					} else if(questions == 2) {
 						System.out.println("Lista de alocações:");
@@ -298,35 +418,127 @@ public class Main {
 							questions = input.nextInt();
 							aloc_numb++;
 							aloc_man[aloc_numb] = "Pes "+atual;
-							System.out.println("Digite a data de inicio da alocação");
-							System.out.println("Digite a data de fim da alocação");
-							aloc_status[aloc_numb] = "Em processo de alocação";
-							aloc_thing[aloc_numb] = "Sala "+questions;
+							System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+							aloc_day[aloc_numb] = input.nextInt();
+							aloc_month[aloc_numb] = input.nextInt();
+							aloc_year[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+							aloc_hour_i[aloc_numb] = input.nextInt();
+							aloc_minute_i[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de fim da alocação (hh/mm)");
+							aloc_hour_f[aloc_numb] = input.nextInt();
+							aloc_minute_f[aloc_numb] = input.nextInt();
+							int free = 1;
+							for(int free_count = 1; free_count < aloc_numb; free_count++) {
+								if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+									if(aloc_thing[free_count].equals("Sala "+questions)) {
+										if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+											free = 0;
+										}
+									}
+								}
+							}
+							if(free == 1) {
+								aloc_status[aloc_numb] = "Em processo de alocação";
+								aloc_thing[aloc_numb] = "Sala "+questions;
+							} else {
+								System.out.println("Horario não disponível");
+								aloc_numb--;
+							}
 						} else if(questions == 2) {
 							System.out.println("Qual laboratório você deseja alocar? (Laboratório de 1 até 4)");
 							questions = input.nextInt();
 							aloc_numb++;
 							aloc_man[aloc_numb] = "Pes "+atual;
-							System.out.println("Digite a data de inicio da alocação");
-							System.out.println("Digite a data de fim da alocação");
-							aloc_status[aloc_numb] = "Em processo de alocação";
-							aloc_thing[aloc_numb] = "Laboratório "+questions;
+							System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+							aloc_day[aloc_numb] = input.nextInt();
+							aloc_month[aloc_numb] = input.nextInt();
+							aloc_year[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+							aloc_hour_i[aloc_numb] = input.nextInt();
+							aloc_minute_i[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de fim da alocação (hh/mm)");
+							aloc_hour_f[aloc_numb] = input.nextInt();
+							aloc_minute_f[aloc_numb] = input.nextInt();
+							int free = 1;
+							for(int free_count = 1; free_count < aloc_numb; free_count++) {
+								if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+									if(aloc_thing[free_count].equals("Laboratório "+questions)) {
+										if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+											free = 0;
+										}
+									}
+								}
+							}
+							if(free == 1) {
+								aloc_status[aloc_numb] = "Em processo de alocação";
+								aloc_thing[aloc_numb] = "Laboratório "+questions;
+							} else {
+								System.out.println("Horario não disponível");
+								aloc_numb--;
+							}
 						} else if(questions == 3) {
 							aloc_numb++;
 							aloc_man[aloc_numb] = "Pes "+atual;
-							System.out.println("Digite a data de inicio da alocação");
-							System.out.println("Digite a data de fim da alocação");
-							aloc_status[aloc_numb] = "Em processo de alocação";
-							aloc_thing[aloc_numb] = "Auditório";
+							System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+							aloc_day[aloc_numb] = input.nextInt();
+							aloc_month[aloc_numb] = input.nextInt();
+							aloc_year[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+							aloc_hour_i[aloc_numb] = input.nextInt();
+							aloc_minute_i[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de fim da alocação (hh/mm)");
+							aloc_hour_f[aloc_numb] = input.nextInt();
+							aloc_minute_f[aloc_numb] = input.nextInt();
+							int free = 1;
+							for(int free_count = 1; free_count < aloc_numb; free_count++) {
+								if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+									if(aloc_thing[free_count].equals("Auditório")) {
+										if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+											free = 0;
+										}
+									}
+								}
+							}
+							if(free == 1) {
+								aloc_status[aloc_numb] = "Em processo de alocação";
+								aloc_thing[aloc_numb] = "Auditório";
+							} else {
+								System.out.println("Horario não disponível");
+								aloc_numb--;
+							}
 						} else if(questions == 4) {
 							System.out.println("Qual projetor você deseja alocar? (Projetores de 1 até 10)");
 							questions = input.nextInt();
 							aloc_numb++;
 							aloc_man[aloc_numb] = "Pes "+atual;
-							System.out.println("Digite a data de inicio da alocação");
-							System.out.println("Digite a data de fim da alocação");
-							aloc_status[aloc_numb] = "Em processo de alocação";
-							aloc_thing[aloc_numb] = "Projetor "+questions;
+							System.out.println("Digite a data de inicio da alocação (dd/mm/yy)");
+							aloc_day[aloc_numb] = input.nextInt();
+							aloc_month[aloc_numb] = input.nextInt();
+							aloc_year[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de inicio da alocação (hh/mm)");
+							aloc_hour_i[aloc_numb] = input.nextInt();
+							aloc_minute_i[aloc_numb] = input.nextInt();
+							System.out.println("Digite a hora de fim da alocação (hh/mm)");
+							aloc_hour_f[aloc_numb] = input.nextInt();
+							aloc_minute_f[aloc_numb] = input.nextInt();
+							int free = 1;
+							for(int free_count = 1; free_count < aloc_numb; free_count++) {
+								if(aloc_day[free_count] == aloc_day[aloc_numb] && aloc_month[free_count] == aloc_month[aloc_numb] && aloc_year[free_count] == aloc_year[aloc_numb]) {
+									if(aloc_thing[free_count].equals("Projetor "+questions)) {
+										if(((aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) >= (aloc_hour_i[free_count]*100+aloc_minute_i[free_count])) && (aloc_hour_i[aloc_numb]*100+aloc_minute_i[aloc_numb]) <= (aloc_hour_f[free_count]*100+aloc_minute_f[free_count])) {
+											free = 0;
+										}
+									}
+								}
+							}
+							if(free == 1) {
+								aloc_status[aloc_numb] = "Em processo de alocação";
+								aloc_thing[aloc_numb] = "Projetor "+questions;
+							} else {
+								System.out.println("Horario não disponível");
+								aloc_numb--;
+							}
 						}
 					} else if(questions == 2) {
 						System.out.println("Lista de alocações:");
