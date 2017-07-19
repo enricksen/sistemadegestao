@@ -36,9 +36,10 @@ public class Main {
 		int aloc_numb = 0;
 		String[] aloc_status = new String[1000];
 		String[] aloc_thing = new String[1000];
-		int[] aloc_man = new int[1000];
+		String[] aloc_man = new String[1000];
 		
 		int[] aloc_activity_numberpart = new int[1000];
+		int aloc_activity_numb = 0;
 		String[] aloc_activity_title = new String[1000];
 		String[] aloc_activity_material = new String[1000];
 		String[] aloc_activity_description = new String[1000];
@@ -91,16 +92,17 @@ public class Main {
 						if(questions == 1) {
 							System.out.println("Qual sala você deseja alocar? (Sala de 1 até 7)");
 							questions = input.nextInt();
-							System.out.println("Qual o responsável pela alocação? (Digite seu código)");
+							System.out.println("Qual o professor responsável pela alocação? (Digite seu código)");
 							aloc_numb++;
-							aloc_man[aloc_numb] = input.nextInt();
-							if(aloc_man[aloc_numb] > prof_numb)
+							int temp = input.nextInt();
+							if(temp > prof_numb)
 							{
 								aloc_numb--;
 								System.out.println("Alocação não disponível");
 							}
 							else
 							{
+								aloc_man[temp] = "Prof "+temp;
 								System.out.println("Digite a data de inicio da alocação");
 								System.out.println("Digite a data de fim da alocação");
 								aloc_status[aloc_numb] = "Em processo de alocação";
@@ -154,7 +156,7 @@ public class Main {
 							System.out.println("Qual sala você deseja alocar? (Sala de 1 até 7)");
 							questions = input.nextInt();
 							aloc_numb++;
-							aloc_man[aloc_numb] = atual;
+							aloc_man[aloc_numb] = "Prof "+atual;
 							System.out.println("Digite a data de inicio da alocação");
 							System.out.println("Digite a data de fim da alocação");
 							aloc_status[aloc_numb] = "Em processo de alocação";
@@ -163,14 +165,14 @@ public class Main {
 							System.out.println("Qual laboratório você deseja alocar? (Laboratório de 1 até 4)");
 							questions = input.nextInt();
 							aloc_numb++;
-							aloc_man[aloc_numb] = atual;
+							aloc_man[aloc_numb] = "Prof "+atual;
 							System.out.println("Digite a data de inicio da alocação");
 							System.out.println("Digite a data de fim da alocação");
 							aloc_status[aloc_numb] = "Em processo de alocação";
 							aloc_thing[aloc_numb] = "Laboratório "+questions;
 						} else if(questions == 3) {
 							aloc_numb++;
-							aloc_man[aloc_numb] = atual;
+							aloc_man[aloc_numb] = "Prof "+atual;
 							System.out.println("Digite a data de inicio da alocação");
 							System.out.println("Digite a data de fim da alocação");
 							aloc_status[aloc_numb] = "Em processo de alocação";
@@ -179,7 +181,7 @@ public class Main {
 							System.out.println("Qual projetor você deseja alocar? (Projetores de 1 até 10)");
 							questions = input.nextInt();
 							aloc_numb++;
-							aloc_man[aloc_numb] = atual;
+							aloc_man[aloc_numb] = "Prof "+atual;
 							System.out.println("Digite a data de inicio da alocação");
 							System.out.println("Digite a data de fim da alocação");
 							aloc_status[aloc_numb] = "Em processo de alocação";
@@ -188,7 +190,7 @@ public class Main {
 					} else if(questions == 2) {
 						System.out.println("Lista de alocações:");
 						for(int cont = 1; cont <= aloc_numb; cont++) {
-							if(aloc_man[cont] == atual  && aloc_status[cont] == "Alocado") {
+							if(aloc_man[cont] == "Prof "+atual  && aloc_status[cont] == "Alocado") {
 								System.out.println("— "+cont+" "+aloc_thing[cont]);
 							}
 						}
@@ -198,7 +200,7 @@ public class Main {
 							int aloc2 = questions;
 							int aloc_in = 0;
 							for(int cont = 1; cont <= aloc_numb; cont++) {
-								if(aloc_man[cont] == atual && aloc_status[cont] == "Em Andamento")
+								if(aloc_man[cont] == "Prof "+atual && aloc_status[cont] == "Em Andamento")
 								{
 									aloc_in = 1;
 								}
@@ -217,7 +219,7 @@ public class Main {
 					} else if(questions == 3) {
 						System.out.println("Lista de alocações:");
 						for(int cont = 1; cont <= aloc_numb; cont++) {
-							if(aloc_man[cont] == atual && aloc_status[cont] == "Em Andamento") {
+							if(aloc_man[cont] == "Prof "+atual && aloc_status[cont] == "Em Andamento") {
 								System.out.println("— "+cont+" "+aloc_thing[cont]);
 							}
 						}
@@ -247,6 +249,7 @@ public class Main {
 								System.out.println("Quantos participantes na atividade?");
 								aloc_activity_numberpart[aloc2] = input.nextInt();
 								System.out.println("Atividade cadastrada com sucesso.");
+								aloc_activity_numb++;
 							}
 						}
 					} else if(questions == 4) {
@@ -294,7 +297,7 @@ public class Main {
 							System.out.println("Qual sala você deseja alocar? (Sala de 1 até 7)");
 							questions = input.nextInt();
 							aloc_numb++;
-							aloc_man[aloc_numb] = atual;
+							aloc_man[aloc_numb] = "Pes "+atual;
 							System.out.println("Digite a data de inicio da alocação");
 							System.out.println("Digite a data de fim da alocação");
 							aloc_status[aloc_numb] = "Em processo de alocação";
@@ -303,14 +306,14 @@ public class Main {
 							System.out.println("Qual laboratório você deseja alocar? (Laboratório de 1 até 4)");
 							questions = input.nextInt();
 							aloc_numb++;
-							aloc_man[aloc_numb] = atual;
+							aloc_man[aloc_numb] = "Pes "+atual;
 							System.out.println("Digite a data de inicio da alocação");
 							System.out.println("Digite a data de fim da alocação");
 							aloc_status[aloc_numb] = "Em processo de alocação";
 							aloc_thing[aloc_numb] = "Laboratório "+questions;
 						} else if(questions == 3) {
 							aloc_numb++;
-							aloc_man[aloc_numb] = atual;
+							aloc_man[aloc_numb] = "Pes "+atual;
 							System.out.println("Digite a data de inicio da alocação");
 							System.out.println("Digite a data de fim da alocação");
 							aloc_status[aloc_numb] = "Em processo de alocação";
@@ -319,7 +322,7 @@ public class Main {
 							System.out.println("Qual projetor você deseja alocar? (Projetores de 1 até 10)");
 							questions = input.nextInt();
 							aloc_numb++;
-							aloc_man[aloc_numb] = atual;
+							aloc_man[aloc_numb] = "Pes "+atual;
 							System.out.println("Digite a data de inicio da alocação");
 							System.out.println("Digite a data de fim da alocação");
 							aloc_status[aloc_numb] = "Em processo de alocação";
@@ -328,7 +331,7 @@ public class Main {
 					} else if(questions == 2) {
 						System.out.println("Lista de alocações:");
 						for(int cont = 1; cont <= aloc_numb; cont++) {
-							if(aloc_man[cont] == atual  && aloc_status[cont] == "Alocado") {
+							if(aloc_man[cont] == "Pes "+atual  && aloc_status[cont] == "Alocado") {
 								System.out.println("— "+cont+" "+aloc_thing[cont]);
 							}
 						}
@@ -338,7 +341,7 @@ public class Main {
 							int aloc2 = questions;
 							int aloc_in = 0;
 							for(int cont = 1; cont <= aloc_numb; cont++) {
-								if(aloc_man[cont] == atual && aloc_status[cont] == "Em Andamento")
+								if(aloc_man[cont] == "Pes "+atual && aloc_status[cont] == "Em Andamento")
 								{
 									aloc_in = 1;
 								}
@@ -357,7 +360,7 @@ public class Main {
 					} else if(questions == 3) {
 						System.out.println("Lista de alocações:");
 						for(int cont = 1; cont <= aloc_numb; cont++) {
-							if(aloc_man[cont] == atual && aloc_status[cont] == "Em Andamento") {
+							if(aloc_man[cont] == "Pes "+atual && aloc_status[cont] == "Em Andamento") {
 								System.out.println("— "+cont+" "+aloc_thing[cont]);
 							}
 						}
@@ -378,6 +381,7 @@ public class Main {
 								System.out.println("Quantos participantes na atividade?");
 								aloc_activity_numberpart[aloc2] = input.nextInt();
 								System.out.println("Atividade cadastrada com sucesso.");
+								aloc_activity_numb++;
 							}
 						}
 					} else if(questions == 4) {
@@ -405,13 +409,148 @@ public class Main {
 					atual = input.nextInt();
 					System.out.println("Bem-vindo de volta "+adm_name[adm_numb]+"!");
 				}
-				System.out.println("Menu de administrador:");
-				System.out.println("1 - Número de usuários");
-				System.out.println("2 - Número de recursos/alocações");
-				System.out.println("3 - Número de atividades");
-				System.out.println("");
-				System.out.println("5 - Sair");
-				questions = input.nextInt();
+				while(end2 == 0) {
+					System.out.println("Menu de administrador:");
+					System.out.println("1 - Número de usuários");
+					System.out.println("2 - Número de recursos/alocações");
+					System.out.println("3 - Número de atividades");
+					System.out.println("4 - Consulta por usuário");
+					System.out.println("5 - Consulta por recurso/alocação");
+					System.out.println("6 - Concluir alocação");
+					System.out.println("7 - Sair");
+					questions = input.nextInt();
+					if(questions == 1) {
+						System.out.println("O número de usuários do sistema é: "+adm_numb+prof_numb+alu_numb+pes_numb);
+					} else if(questions == 2) {
+						System.out.println("O número total de recursos/alocações é: "+aloc_numb);
+						System.out.println("Sendo eles:");
+						int count1 = 0;
+						int count2 = 0;
+						int count3 = 0;
+						for(int i = 0; i < aloc_numb; i++)
+						{
+							if(aloc_status[i] == "Alocado"){
+								count1++;
+							} else if(aloc_status[i] == "Em Andamento") {
+								count2++;
+							} else if(aloc_status[i] == "Concluído") {
+								count3++;
+							}
+						}
+						System.out.println(count1+" do tipo 'Alocado'");
+						System.out.println(count2+" do tipo 'Em Andamento'");
+						System.out.println(count3+" do tipo 'Concluído'");
+						
+					} else if(questions == 3) {
+						System.out.println("O número total de atividades é: "+aloc_activity_numb);
+						System.out.println("Sendo elas:");
+						int count1 = 0;
+						int count2 = 0;
+						int count3 = 0;
+						for(int i = 0; i < aloc_activity_numb; i++)
+						{
+							if(aloc_activity_type[i] == "Aula tradicional"){
+								count1++;
+							} else if(aloc_activity_type[i] == "Apresentação") {
+								count2++;
+							} else if(aloc_activity_type[i] == "Laboratório") {
+								count3++;
+							}
+						}
+						System.out.println(count1+" do tipo 'Aula tradicional'");
+						System.out.println(count2+" do tipo 'Apresentação'");
+						System.out.println(count3+" do tipo 'Laboratório'");
+						
+					} else if(questions == 4) {
+						System.out.println("Qual o seu nível de acesso do usuário?");
+						System.out.println("(1 - Aluno, 2 - Professor, 3 - Pesquisador)");
+						questions = input.nextInt();
+						if(questions == 1) {
+							System.out.println("Digite o código do aluno");
+							questions = input.nextInt();
+							System.out.println("Informações do usuário:");
+							System.out.println("Nome: "+alu_name[questions]);
+							System.out.println("Nome: "+alu_email[questions]);
+							System.out.println("Recursos onde ele é responsável:");
+						} else if(questions == 2) {
+							System.out.println("Digite o código do professor");
+							questions = input.nextInt();
+							System.out.println("Informações do usuário:");
+							System.out.println("Nome: "+prof_name[questions]);
+							System.out.println("Nome: "+prof_email[questions]);
+							System.out.println("Recursos onde ele é responsável:");
+							for(int count = 0; count < aloc_numb; count++) {
+								if(aloc_man[count] == "Prof "+questions) {
+									System.out.println("Recurso "+count+" — Informações: ");
+									System.out.println(aloc_status[count]);
+									System.out.println(aloc_thing[count]);
+									if(aloc_status[count] == "Concluído") {
+										System.out.println(aloc_activity_title[count]);
+										System.out.println(aloc_activity_material[count]);
+										System.out.println(aloc_activity_description[count]);
+										System.out.println(aloc_activity_type[count]);
+										System.out.println(aloc_activity_numberpart[count]);
+									}
+								}
+							}
+						} else if(questions == 3) {
+							System.out.println("Digite o código do pesquisador");
+							questions = input.nextInt();
+							System.out.println("Informações do usuário:");
+							System.out.println("Nome: "+pes_name[questions]);
+							System.out.println("Nome: "+pes_email[questions]);
+							System.out.println("Recursos onde ele é responsável:");
+							for(int count = 0; count < aloc_numb; count++) {
+								if(aloc_man[count] == "Pes "+questions) {
+									System.out.println("Recurso "+count+" — Informações: ");
+									System.out.println(aloc_status[count]);
+									System.out.println(aloc_thing[count]);
+									if(aloc_status[count] == "Concluído") {
+										System.out.println(aloc_activity_title[count]);
+										System.out.println(aloc_activity_material[count]);
+										System.out.println(aloc_activity_description[count]);
+										System.out.println(aloc_activity_type[count]);
+										System.out.println(aloc_activity_numberpart[count]);
+									}
+								}
+							}
+						}
+						
+					} else if(questions == 5) {
+						System.out.println("Digite o código da alocação");
+						questions = input.nextInt();
+						System.out.println("Recurso "+questions+" — Informações: ");
+						System.out.println(aloc_status[questions]);
+						System.out.println(aloc_thing[questions]);
+						System.out.println(aloc_man[questions]);
+						if(aloc_status[questions] == "Concluído") {
+							System.out.println(aloc_activity_title[questions]);
+							System.out.println(aloc_activity_material[questions]);
+							System.out.println(aloc_activity_description[questions]);
+							System.out.println(aloc_activity_type[questions]);
+							System.out.println(aloc_activity_numberpart[questions]);
+						}
+					} else if(questions == 6) {
+						System.out.println("Lista de alocações:");
+						for(int cont = 1; cont <= aloc_numb; cont++) {
+							if(aloc_status[cont] == "Em Andamento") {
+								System.out.println("— "+cont+" "+aloc_thing[cont]);
+							}
+						}
+						System.out.println("Digite o numero da alocação, caso não tenha nenhuma ou não queira alguma, digite 0");
+						questions = input.nextInt();
+						if(questions != 0) {
+							int aloc2 = questions;
+								System.out.println("Deseja confirmar a alocação "+aloc2+"? (1 - Sim / 2 - Não)");
+								questions = input.nextInt();
+								if(questions == 1) {
+									aloc_status[aloc2] = "Concluído";
+						}
+						}
+					} else if(questions == 7) {
+						end2 = 1;
+					}
+				}
 				break;
 			}
 			System.out.println("Você deseja sair do sistema? (1 - Sim / 2 - Não)");
